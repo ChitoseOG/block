@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ブロック崩し</title>
+  <style>
+    /* ゲーム画面のスタイル */
+    #game-screen {
+      width: 500px;
+      height: 500px;
+      border: 1px solid black;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    /* パドルのスタイル */
+    #paddle {
+      width: 80px;
+      height: 10px;
+      background-color: blue;
+      position: absolute;
+      bottom: 0;
+      left: 210px;
+    }
+
+    /* ボールのスタイル */
+    .ball {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: red;
+      position: absolute;
+      top: 150px;
+      left: 240px;
+    }
+
+    /* ブロックのスタイル */
+    .block {
+      width: 50px;
+      height: 20px;
+      background-color: green;
+      position: absolute;
+      top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-screen">
+    <!-- パドル -->
+    <div id="paddle"></div>
+    <!-- ボール -->
+    <div class="ball"></div>
+    <!-- ブロック -->
+    <div class="block" style="left: 20px;"></div>
+    <div class="block" style="left: 80px;"></div>
+    <div class="block" style="left: 140px;"></div>
+    <div class="block" style="left: 200px;"></div>
+    <div class="block" style="left: 260px;"></div>
+    <div class="block" style="left: 320px;"></div>
+    <div class="block" style="left: 380px;"></div>
+  </div>
+
+  <script>
+    // ボールの初期位置
+    let ballX = 240;
+    let ballY = 150;
+
+    // ボールの移動方向
+    let ballSpeedX = 5;
+    let ballSpeedY = 5;
+
+    // パドルの移動量
+    let paddleSpeed = 10;
+
+    // ゲーム画面の幅と高さ
+    const screenWidth = 500;
+    const screenHeight = 500;
+
+    // ボールを動かす関数
+    function moveBall() {
+      const ball = document.querySelector('.ball');
+
+      // ボールの位置を更新
+      ballX += ballSpeedX;
+      ballY += ballSpeedY;
+
+      // ボールが壁に当たった場合、反射する
+      if (ballX < 0 || ballX > screenWidth - ball.clientWidth) {
+        ballSpeedX = -ballSpeedX;
+      }
+      if (ballY < 0) {
+        ballSpeedY = -ballSpeedY;
+      }
+      if (ballY > screenHeight - ball.clientHeight) {
+        // ボールが床に当たった場合、ゲームオーバー
+        alert('
